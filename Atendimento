@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <title>Atendimento - Clínica Veterinária (Prompt/Alert)</title>
+</head>
+<body>
+<script>
+/* SISTEMA DE ATENDIMENTO INTERATIVO - CLÍNICA VETERINÁRIA
+   Tudo baseado em prompt() e alert(), conforme solicitado.
+*/
+
+/* 1. Boas-vindas ao tutor */
+let nomeTutor = prompt("Olá! Seja bem-vindo à nossa clínica veterinária. Qual é o seu nome?");
+if (!nomeTutor) { // se o usuário cancelou ou deixou vazio
+    nomeTutor = "Tutor";
+}
+alert("Olá, " + nomeTutor + "! É um prazer recebê-lo na nossa clínica.");
+
+/* 2. Verificação de idade do tutor */
+let idadeTutor = parseInt(prompt(nomeTutor + ", por favor digite a sua idade (apenas números):"), 10);
+if (isNaN(idadeTutor)) {
+    alert("Você não digitou uma idade válida. Vou considerar que não informou a idade.");
+} else {
+    if (idadeTutor >= 18) {
+        alert("Perfeito — você é maior de idade e está autorizado a prosseguir com o atendimento.");
+    } else {
+        alert("Atenção: você é menor de idade. Para autorizar determinados atendimentos, precisamos do responsável maior de idade.");
+    }
+}
+
+/* 3. Número da sorte: par ou ímpar */
+let numeroSorte = parseInt(prompt("Agora, por curiosidade divertida: digite um número da sorte (inteiro):"), 10);
+if (isNaN(numeroSorte)) {
+    alert("Você não digitou um número inteiro válido para o número da sorte.");
+} else {
+    if (numeroSorte % 2 === 0) {
+        alert("Que legal — seu número da sorte é PAR!");
+    } else {
+        alert("Ótimo — seu número da sorte é ÍMPAR!");
+    }
+}
+
+/* 4. Mini calculadora para pagamentos */
+let operacao = prompt("Deseja simular custos? Escolha a operação (+, -, *, /):");
+if (operacao) {
+    operacao = operacao.trim();
+}
+let valor1 = parseFloat(prompt("Digite o primeiro valor (ex: 120.50):"));
+let valor2 = parseFloat(prompt("Digite o segundo valor (ex: 30.00):"));
+let resultadoCalc;
+let calculadoraValida = true;
+
+if (isNaN(valor1) || isNaN(valor2)) {
+    alert("Um ou ambos os valores informados não são números válidos. A operação não será realizada.");
+    calculadoraValida = false;
+} else {
+    switch (operacao) {
+        case "+":
+            resultadoCalc = valor1 + valor2;
+            break;
+        case "-":
+            resultadoCalc = valor1 - valor2;
+            break;
+        case "*":
+            resultadoCalc = valor1 * valor2;
+            break;
+        case "/":
+            if (valor2 === 0) {
+                alert("Erro: divisão por zero não é permitida.");
+                calculadoraValida = false;
+            } else {
+                resultadoCalc = valor1 / valor2;
+            }
+            break;
+        default:
+            alert("Operação inválida. Use apenas +, -, * ou /.");
+            calculadoraValida = false;
+    }
+}
+
+if (calculadoraValida) {
+    alert("Resultado da operação (" + valor1 + " " + operacao + " " + valor2 + ") = " + resultadoCalc);
+}
+
+/* 5. Estação do ano a partir do mês */
+let mesAno = prompt("Agora, me diga o mês do ano (por exemplo: janeiro):").toLowerCase().trim();
+let estacao = "";
+switch (mesAno) {
+    case "dezembro":
+    case "janeiro":
+    case "fevereiro":
+        estacao = "verão";
+        break;
+    case "março":
+    case "abril":
+    case "maio":
+        estacao = "outono";
+        break;
+    case "junho":
+    case "julho":
+    case "agosto":
+        estacao = "inverno";
+        break;
+    case "setembro":
+    case "outubro":
+    case "novembro":
+        estacao = "primavera";
+        break;
+    default:
+        estacao = null;
+}
+if (estacao) {
+    alert("O mês de " + mesAno + " corresponde à estação: " + estacao + ". (Dica: cuide do seu pet conforme a estação — por exemplo, vacinas e proteção contra frio/calor).");
+} else {
+    alert("Não reconheci o mês informado. Certifique-se de escrever o mês por extenso (ex: 'janeiro').");
+}
+
+/* 6. Número positivo e contagem de próximos 5 pares */
+let numeroPositivo = parseInt(prompt("Digite um número POSITIVO (por exemplo, a idade do seu pet):"), 10);
+if (isNaN(numeroPositivo) || numeroPositivo <= 0) {
+    alert("Número inválido. Deve ser um número maior que zero.");
+} else {
+    // Encontrar os próximos 5 números pares estritamente maiores que numeroPositivo
+    let paresEncontrados = [];
+    let current = numeroPositivo + 1; // começar acima do valor informado
+    while (paresEncontrados.length < 5) {
+        if (current % 2 === 0) {
+            paresEncontrados.push(current);
+        }
+        current++;
+    }
+    alert("Você informou: " + numeroPositivo + ". Os próximos 5 números pares acima dele são: " + paresEncontrados.join(", ") + ".");
+}
+
+/* 7. Idade do cachorro em anos humanos */
+function idadeHumana(idadeCao) {
+    return idadeCao * 7;
+}
+let idadeCao = parseInt(prompt("Qual a idade do seu cachorro (em anos)?"), 10);
+if (isNaN(idadeCao) || idadeCao < 0) {
+    alert("Idade do cachorro inválida.");
+} else {
+    let equivalenteHumano = idadeHumana(idadeCao);
+    alert("A idade do seu cachorro (" + idadeCao + " anos) equivale aproximadamente a " + equivalenteHumano + " anos humanos (estimativa simples: x7).");
+}
+
+/* 8. Cálculo de área de formas geométricas */
+function areaQuadrado(lado) {
+    return lado * lado;
+}
+function areaTriangulo(base, altura) {
+    return (base * altura) / 2;
+}
+function areaCirculo(raio) {
+    return Math.PI * raio * raio;
+}
+
+let forma = prompt("Gostaria de calcular a área de qual forma geométrica? (quadrado, triangulo, circulo)").toLowerCase().trim();
+if (!forma) {
+    alert("Nenhuma forma selecionada.");
+} else {
+    if (forma === "quadrado") {
+        let lado = parseFloat(prompt("Informe o lado do quadrado (número):"));
+        if (isNaN(lado) || lado <= 0) {
+            alert("Valor de lado inválido.");
+        } else {
+            alert("Área do quadrado (lado = " + lado + ") = " + areaQuadrado(lado).toFixed(2));
+        }
+    } else if (forma === "triangulo" || forma === "triângulo") {
+        let base = parseFloat(prompt("Informe a base do triângulo (número):"));
+        let altura = parseFloat(prompt("Informe a altura do triângulo (número):"));
+        if (isNaN(base) || isNaN(altura) || base <= 0 || altura <= 0) {
+            alert("Valores inválidos para base ou altura.");
+        } else {
+            alert("Área do triângulo (base = " + base + ", altura = " + altura + ") = " + areaTriangulo(base, altura).toFixed(2));
+        }
+    } else if (forma === "circulo" || forma === "círculo") {
+        let raio = parseFloat(prompt("Informe o raio do círculo (número):"));
+        if (isNaN(raio) || raio <= 0) {
+            alert("Valor de raio inválido.");
+        } else {
+            alert("Área do círculo (raio = " + raio + ") = " + areaCirculo(raio).toFixed(2));
+        }
+    } else {
+        alert("Forma geométrica não reconhecida. Use 'quadrado', 'triangulo' ou 'circulo'.");
+    }
+}
+
+/* 9. Mensagem de encerramento */
+alert("Obrigado, " + nomeTutor + "! A equipe da clínica veterinária agradece sua visita. Desejamos um ótimo atendimento para você e muito carinho para o seu pet. Até breve!");
+
+</script>
+</body>
+</html>
